@@ -13,10 +13,9 @@ class webadmin::dev($webadminuser = $webadmin::webadminuser, $webadmingroup = $w
   file { "/home/$webadminuser/.bashrc":
     ensure => present,
     owner => $webadminuser,
-    group => webadmingroup,
+    group => $webadmingroup,
     mode => 644,
     source => "puppet:///modules/webadmin/.bashrc",
   }
- }
 
 }
