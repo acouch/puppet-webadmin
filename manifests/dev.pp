@@ -10,11 +10,4 @@ class webadmin::dev($webadminuser = $webadmin::webadminuser, $webadmingroup = $w
     source => "puppet:///modules/webadmin/defhost",
   }
 
-  file { "/home/$webadminuser/.bashrc":
-    ensure => present,
-    owner => $webadminuser,
-    group => webadmingroup,
-    mode => 644,
-    source => "puppet:///modules/webadmin/.bashrc",
-  }
 }
