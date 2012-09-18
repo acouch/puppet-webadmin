@@ -1,6 +1,10 @@
 # Package lists and user settings for administrative user.
 class webadmin($webadminuser = "webadmin", $webadmingroup = "webadmin", $webadminpass = '$6$rBjB67FX$J9XuNhHJEuR7p6NQC0yCgPR/T2SABNC5IpQqcC1KNLbPO/peVjv.3s.5TdyPwN.60A10qMaPXzBO8rWqLibMk1') {
 
+   group { [$webadmingroup] :
+    ensure => 'present',
+   }
+
    user { $webadminuser:
     ensure     => "present",
     managehome => true,
