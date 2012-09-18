@@ -4,7 +4,8 @@ class webadmin($webadminuser = "webadmin", $webadmingroup = "webadmin", $webadmi
    user { $webadminuser:
     ensure     => "present",
     managehome => true,
-    groups => ["$webadmingroup", 'www-data'],
+    groups => ['www-data'],
+    gid => "$webadmingroup",
     password => $webadminpass,
     shell   => '/bin/bash',
   }
@@ -16,7 +17,7 @@ class webadmin($webadminuser = "webadmin", $webadmingroup = "webadmin", $webadmi
     mode => 644,
   }
 
-  file { "/home/{$webadminuser}/.ssh/environment":
+  file { "/home/$webadminuser/.ssh/environment":
     owner => $webadminuser,
     group => $webadmingroup,
     mode => 644,
@@ -43,7 +44,7 @@ class webadmin($webadminuser = "webadmin", $webadmingroup = "webadmin", $webadmi
     require => [ File["/usr/src/git_sh_1.1.deb"], Package["base-package"] ],
   }
 
-  package { 'base-package': 
+  package { 'base-package':
     name => [
         'byobu',
         'curl',
