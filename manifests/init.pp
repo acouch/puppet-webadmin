@@ -1,5 +1,27 @@
-# Package lists and user settings for administrative user. 
-class webadmin($webadminuser = "webadmin", $webadmingroup = "webadmin") {
+# Package lists and user settings for administrative user.
+class webadmin($webadminuser = "webadmin", $webadmingroup = "webadmin", $webadminpass = '$6$rBjB67FX$J9XuNhHJEuR7p6NQC0yCgPR/T2SABNC5IpQqcC1KNLbPO/peVjv.3s.5TdyPwN.60A10qMaPXzBO8rWqLibMk1') {
+
+   user { $webadminuser:
+    ensure     => "present",
+    managehome => true,
+    groups => ["$webadmingroup", 'www-data'],
+    password => $webadminpass,
+    shell   => '/bin/bash',
+  }
+
+  file { "/home/$webadminuser/.ssh":
+    ensure => "directory",
+    owner => $webadminuser,
+    group => $webadmingroup,
+    mode => 644,
+  }
+
+  file { "/home/{$webadminuser}/.ssh/environment":
+    owner => $webadminuser,
+    group => $webadmingroup,
+    mode => 644,
+    ensure => file,
+  }
 
   # Copy our git-sh deb package into the vm for ins
   file { "/usr/src/git_sh_1.1.deb":
@@ -101,5 +123,19 @@ class webadmin($webadminuser = "webadmin", $webadmingroup = "webadmin") {
     command => "/usr/sbin/ntpdate ntp.ubuntu.com",
     user => root,
     minute => ['*/3'],
+  }
+
+  file { '/usr/local/bin/runtags':
+    source => "puppet:///modules/webadmin/runtags",
+    owner => 'root',
+    group => 'root',
+    mode => 755,
+  }
+
+  file { '/usr/local/bin/make-random-password':
+    source => "puppet:///modules/webadmin/make-random-password",
+    owner => 'root',
+    group => 'root',
+    mode => 755,
   }
 }

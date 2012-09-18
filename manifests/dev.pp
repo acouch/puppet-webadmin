@@ -18,4 +18,10 @@ class webadmin::dev($webadminuser = $webadmin::webadminuser, $webadmingroup = $w
     source => "puppet:///modules/webadmin/.bashrc",
   }
 
+  file { '/usr/local/bin/network-restart':
+    source => "puppet:///modules/webadmin/network-restart",
+    owner => 'root',
+    group => 'root',
+    mode => 755,
+  }
 }
