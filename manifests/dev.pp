@@ -15,4 +15,11 @@ class webadmin::dev($webadminuser = $webadmin::webadminuser, $webadmingroup = $w
     group => 'root',
     mode => 755,
   }
+
+  file { '/usr/local/bin/coder':
+    source => "puppet:///modules/webadmin/coder",
+    owner => 'root',
+    group => 'root',
+    mode => 755,
+  }
 }

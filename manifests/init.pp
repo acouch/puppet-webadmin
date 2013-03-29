@@ -60,6 +60,7 @@ class webadmin($webadminuser = "webadmin", $webadmingroup = "webadmin", $webadmi
         'openssh-server',
         'openssl',
         'postfix',
+        'ruby-compass',
         'screen',
         'vim',
         'vim-common',
