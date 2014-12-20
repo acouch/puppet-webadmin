@@ -28,24 +28,8 @@ class webadmin($webadminuser = "webadmin", $webadmingroup = "webadmin", $webadmi
     ensure => file,
   }
 
-  # Copy our git-sh deb package into the vm for ins
-  file { "/usr/src/git_sh_1.1.deb":
-    owner => root,
-    group => root,
-    mode => 644,
-    ensure => file,
-    source => "puppet:///modules/webadmin/git_sh_1.1.deb",
-  }
-
   package { "git-core":
     ensure => installed,
-  }
-
-  package { "git-sh":
-    ensure => installed,
-    provider => 'dpkg',
-    source => "/usr/src/git_sh_1.1.deb",
-    require => [ File["/usr/src/git_sh_1.1.deb"], Package["base-package"] ],
   }
 
   package { 'base-package':
